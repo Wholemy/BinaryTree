@@ -12,4 +12,4 @@
 
 Это двоичное дерево не содержит ничего лишнего или ненужного, в нем можно получать значения выше или ниже, перечислять как этого требует ситуация)
 
-![BinaryTree](https://user-images.githubusercontent.com/68204631/133011322-44668ff9-a6c2-4224-99c9-f132386a284c.png)
+![BinaryTree](https://user-images.githubusercontent.com/68204631/133322464-a7bcc07b-3943-49c8-9956-49163ebf4bea.png)
