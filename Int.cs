@@ -165,7 +165,7 @@ namespace Wholemy {
 		public static bool GetAE<T>(ref Int<T> Owner, int Index) {
 			var O = Owner;
 			if (O != null) {
-				O = O.GetAE(Index);
+				O = O.GetA(Index,true);
 				if (O != null) {
 					Owner = O;
 					return true;
@@ -183,7 +183,7 @@ namespace Wholemy {
 		public static bool GetBE<T>(ref Int<T> Owner, int Index) {
 			var O = Owner;
 			if (O != null) {
-				O = O.GetBE(Index);
+				O = O.GetB(Index, true);
 				if (O != null) {
 					Owner = O;
 					return true;
@@ -748,18 +748,18 @@ namespace Wholemy {
 				return T;
 			}
 			#endregion
-			#region #method# GetA(Index) 
+			#region #method# GetA(Index, Equal) 
 			#region #through# 
 #if TRACE
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Int<T> GetA(int Index) {
+			public Int<T> GetA(int Index,bool Equal = false) {
 				var T = this;
 				Int<T> A = null;
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
-					if (T.Shift == 0 && T.Index == Index) { return T.above; }
+					if (T.Shift == 0 && T.Index == Index) { if(Equal) return T; return T.above; }
 					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { A = T; break; }
 					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
 				}
@@ -770,62 +770,18 @@ namespace Wholemy {
 				return A;
 			}
 			#endregion
-			#region #method# GetB(Index) 
+			#region #method# GetB(Index, Equal) 
 			#region #through# 
 #if TRACE
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Int<T> GetB(int Index) {
+			public Int<T> GetB(int Index, bool Equal = false) {
 				var T = this;
 				Int<T> B = null;
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
-					if (T.Shift == 0 && T.Index == Index) { return T.below; }
-					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { B = T; break; }
-					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
-				}
-				while (B != null && B.Shift > 0) {
-					if (B.Index >= Index >> B.Shift) { B = B.below; } else { B = B.above; }
-				}
-				while (B != null && B.Index >= Index) { B = B.below; }
-				return B;
-			}
-			#endregion
-			#region #method# GetAE(Index) 
-			#region #through# 
-#if TRACE
-			[System.Diagnostics.DebuggerStepThrough]
-#endif
-			#endregion
-			public Int<T> GetAE(int Index) {
-				var T = this;
-				Int<T> A = null;
-				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
-				while (T != null) {
-					if (T.Shift == 0 && T.Index == Index) { return T; }
-					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { A = T; break; }
-					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
-				}
-				while (A != null && A.Shift > 0) {
-					if (A.Index <= Index >> A.Shift) { A = A.above; } else { A = A.below; }
-				}
-				while (A != null && A.Index <= Index) { A = A.above; }
-				return A;
-			}
-			#endregion
-			#region #method# GetBE(Index) 
-			#region #through# 
-#if TRACE
-			[System.Diagnostics.DebuggerStepThrough]
-#endif
-			#endregion
-			public Int<T> GetBE(int Index) {
-				var T = this;
-				Int<T> B = null;
-				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
-				while (T != null) {
-					if (T.Shift == 0 && T.Index == Index) { return T; }
+					if (T.Shift == 0 && T.Index == Index) { if (Equal) return T; return T.below; }
 					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { B = T; break; }
 					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
 				}
