@@ -165,7 +165,7 @@ namespace Wholemy {
 		public static bool GetAE<T>(ref Int<T> Owner, int Index) {
 			var O = Owner;
 			if (O != null) {
-				O = O.GetA(Index,true);
+				O = O.GetA(Index, true);
 				if (O != null) {
 					Owner = O;
 					return true;
@@ -424,31 +424,59 @@ namespace Wholemy {
 				}
 			}
 			#endregion
-			#region #method# Add(Owner, Index, Value) 
-			/// <summary>Добавление элемента в дерево с уникальным индексом и предустановленным значением)</summary>
-			/// <param name="Owner">Текущий владелец элемента)</param>
-			/// <param name="Index">Порядковый индекс элемента)</param>
-			/// <param name="Value">Устанавливаемое значение)</param>
-			/// <returns>Результат операции)</returns>
-			#region #through# 
+			#region #property# Base 
+			public Int<T> Base {
+				#region #through# 
 #if TRACE
-			[System.Diagnostics.DebuggerStepThrough]
+				[System.Diagnostics.DebuggerStepThrough]
 #endif
-			#endregion
-			public static bool Add(ref Int<T> Owner, int Index, T Value) {
-				var O = Owner;
-				if (O == null) { Owner = new Int<T>(Index, Value); return true; }
-				while (O.owner != null && O.Index != Index >> O.Shift) { O = O.owner; }
-				while (O != null) {
-					if (O.Shift == 0 && O.Index == Index) {
-						return false;
-					}
-					if (O.Shift == 0 || (O.Shift < Bound && O.Index != Index >> O.Shift)) {
-						new Int<T>(O, O = new Int<T>(Index, Value)); Owner = O; return true;
-					}
-					if (((Index >> O.Shift - 1) & 1) != 0) { O = O.above; } else { O = O.below; }
+				#endregion
+				get {
+					var T = this;
+					while (T.owner != null) T = T.owner;
+					if (T.Shift == Bound) T = T.above;
+					while (T.Shift > 0) { T = T.below; }
+					return T;
 				}
-				return false;
+			}
+			#endregion
+			#region #property# Last 
+			public Int<T> Last {
+				#region #through# 
+#if TRACE
+				[System.Diagnostics.DebuggerStepThrough]
+#endif
+				#endregion
+				get {
+					var T = this;
+					while (T.owner != null) T = T.owner;
+					if (T.Shift == Bound) T = T.below;
+					while (T.Shift > 0) { T = T.above; }
+					return T;
+				}
+			}
+			#endregion
+			#region #property# Items 
+			public Int<T>[] Items {
+				#region #through# 
+#if TRACE
+				[System.Diagnostics.DebuggerStepThrough]
+#endif
+				#endregion
+				get {
+					var T = this;
+					while (T.owner != null) T = T.owner;
+					var I = T.count;
+					var A = new Int<T>[I];
+					if (T.Shift == Bound) T = T.below;
+					while (T.Shift > 0) { T = T.above; }
+					while (T != null) {
+						if (T.Shift > 0) throw new System.InvalidOperationException();
+						A[--I] = T;
+						T = T.below;
+					}
+					return A;
+				}
 			}
 			#endregion
 			#region #method# Add(Owner, Index) 
@@ -471,6 +499,33 @@ namespace Wholemy {
 					}
 					if (O.Shift == 0 || (O.Shift < Bound && O.Index != Index >> O.Shift)) {
 						new Int<T>(O, O = new Int<T>(Index)); Owner = O; return true;
+					}
+					if (((Index >> O.Shift - 1) & 1) != 0) { O = O.above; } else { O = O.below; }
+				}
+				return false;
+			}
+			#endregion
+			#region #method# Add(Owner, Index, Value) 
+			/// <summary>Добавление элемента в дерево с уникальным индексом и предустановленным значением)</summary>
+			/// <param name="Owner">Текущий владелец элемента)</param>
+			/// <param name="Index">Порядковый индекс элемента)</param>
+			/// <param name="Value">Устанавливаемое значение)</param>
+			/// <returns>Результат операции)</returns>
+			#region #through# 
+#if TRACE
+			[System.Diagnostics.DebuggerStepThrough]
+#endif
+			#endregion
+			public static bool Add(ref Int<T> Owner, int Index, T Value) {
+				var O = Owner;
+				if (O == null) { Owner = new Int<T>(Index, Value); return true; }
+				while (O.owner != null && O.Index != Index >> O.Shift) { O = O.owner; }
+				while (O != null) {
+					if (O.Shift == 0 && O.Index == Index) {
+						return false;
+					}
+					if (O.Shift == 0 || (O.Shift < Bound && O.Index != Index >> O.Shift)) {
+						new Int<T>(O, O = new Int<T>(Index, Value)); Owner = O; return true;
 					}
 					if (((Index >> O.Shift - 1) & 1) != 0) { O = O.above; } else { O = O.below; }
 				}
@@ -531,78 +586,79 @@ namespace Wholemy {
 				return false;
 			}
 			#endregion
-			#region #implicit operator# = 
+			#region #method# Get(Index) 
+			/// <summary>Возвращает элемент дерева по указанному индексу)</summary>
 			#region #through# 
 #if TRACE
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public static implicit operator Int<T>(int Index) {
-				return new Int<T>(Index);
-			}
-			#endregion
-			#region #operator# + 
-			#region #through# 
-#if TRACE
-			[System.Diagnostics.DebuggerStepThrough]
-#endif
-			#endregion
-			public static Int<T> operator +(Int<T> T, int Index) {
-				if (T == null) return new Int<T>(Index);
+			public Int<T> Get(int Index) {
+				var T = this;
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
 					if (T.Shift == 0 && T.Index == Index) return T;
-					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) {
-						new Int<T>(T, T = new Int<T>(Index)); break;
-					}
-					T = (((Index >> T.Shift - 1) & 1) != 0) ? T.above : T.below;
+					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { return null; }
+					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
 				}
 				return T;
 			}
+			#endregion
+			#region #method# GetA(Index, Equal) 
+			/// <summary>Возвращает элемент дерева по указанному индексу или выше)</summary>
 			#region #through# 
 #if TRACE
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public static Int<T> operator +(Int<T> T, Int<T> I) {
-				if (T == null) return I;
-				var Index = I.Index;
+			public Int<T> GetA(int Index, bool Equal = false) {
+				var T = this;
+				Int<T> A = null;
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
-					if (T.Shift == 0 && T.Index == Index) return T;
-					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) {
-						new Int<T>(T, I); break;
-					}
-					T = (((Index >> T.Shift - 1) & 1) != 0) ? T.above : T.below;
+					if (T.Shift == 0 && T.Index == Index) { if (Equal) return T; return T.above; }
+					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { A = T; break; }
+					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
 				}
-				return I;
+				while (A != null && A.Shift > 0) {
+					if (A.Index <= Index >> A.Shift) { A = A.above; } else { A = A.below; }
+				}
+				while (A != null && A.Index <= Index) { A = A.above; }
+				return A;
 			}
 			#endregion
-			#region #operator# - 
+			#region #method# GetB(Index, Equal) 
+			/// <summary>Возвращает элемент дерева по указанному индексу или ниже)</summary>
 			#region #through# 
 #if TRACE
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public static Int<T> operator -(Int<T> T, int Index) {
-				Int<T> C = T;
-				if (T != null) {
-					while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
-					while (T != null) {
-						if (T.Shift == 0 && T.Index == Index) {
-							C = T.above;
-							if (C == null) C = T.below;
-							T.Cut();
-							return C;
-						}
-						if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { return C; }
-						if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
-					}
+			public Int<T> GetB(int Index, bool Equal = false) {
+				var T = this;
+				Int<T> B = null;
+				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
+				while (T != null) {
+					if (T.Shift == 0 && T.Index == Index) { if (Equal) return T; return T.below; }
+					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { B = T; break; }
+					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
 				}
-				return C;
+				while (B != null && B.Shift > 0) {
+					if (B.Index >= Index >> B.Shift) { B = B.below; } else { B = B.above; }
+				}
+				while (B != null && B.Index >= Index) { B = B.below; }
+				return B;
 			}
 			#endregion
 			#region #method# Cut() 
+			/// <summary>Удаляет этот элемент)</summary>
+			/// <returns>Возвращает этот элемент)</returns>
+			/// <exception cref="System.InvalidOperationException">Если связующий элемент)</exception>
+			#region #through# 
+#if TRACE
+			[System.Diagnostics.DebuggerStepThrough]
+#endif
+			#endregion
 			public Int<T> Cut() {
 				if (this.Shift != 0) throw new System.InvalidOperationException();
 				var T = this;
@@ -676,120 +732,75 @@ namespace Wholemy {
 				return $"Index={Index.ToString(I)}";
 			}
 			#endregion
-			#region #property# Base 
-			public Int<T> Base {
-				#region #through# 
-#if TRACE
-				[System.Diagnostics.DebuggerStepThrough]
-#endif
-				#endregion
-				get {
-					var T = this;
-					while (T.owner != null) T = T.owner;
-					if (T.Shift == Bound) T = T.above;
-					while (T.Shift > 0) { T = T.below; }
-					return T;
-				}
-			}
-			#endregion
-			#region #property# Last 
-			public Int<T> Last {
-				#region #through# 
-#if TRACE
-				[System.Diagnostics.DebuggerStepThrough]
-#endif
-				#endregion
-				get {
-					var T = this;
-					while (T.owner != null) T = T.owner;
-					if (T.Shift == Bound) T = T.below;
-					while (T.Shift > 0) { T = T.above; }
-					return T;
-				}
-			}
-			#endregion
-			#region #property# Items 
-			public Int<T>[] Items {
-				#region #through# 
-#if TRACE
-				[System.Diagnostics.DebuggerStepThrough]
-#endif
-				#endregion
-				get {
-					var T = this;
-					while (T.owner != null) T = T.owner;
-					var I = T.count;
-					var A = new Int<T>[I];
-					if (T.Shift == Bound) T = T.below;
-					while (T.Shift > 0) { T = T.above; }
-					while (T != null) {
-						if (T.Shift > 0) throw new System.InvalidOperationException();
-						A[--I] = T;
-						T = T.below;
-					}
-					return A;
-				}
-			}
-			#endregion
-			#region #method# Get(Index) 
+			#region #implicit operator# = 
 			#region #through# 
 #if TRACE
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Int<T> Get(int Index) {
-				var T = this;
+			public static implicit operator Int<T>(int Index) {
+				return new Int<T>(Index);
+			}
+			#endregion
+			#region #operator# + 
+			#region #through# 
+#if TRACE
+			[System.Diagnostics.DebuggerStepThrough]
+#endif
+			#endregion
+			public static Int<T> operator +(Int<T> T, int Index) {
+				if (T == null) return new Int<T>(Index);
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
 					if (T.Shift == 0 && T.Index == Index) return T;
-					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { return null; }
-					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
+					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) {
+						new Int<T>(T, T = new Int<T>(Index)); break;
+					}
+					T = (((Index >> T.Shift - 1) & 1) != 0) ? T.above : T.below;
 				}
 				return T;
 			}
-			#endregion
-			#region #method# GetA(Index, Equal) 
 			#region #through# 
 #if TRACE
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Int<T> GetA(int Index,bool Equal = false) {
-				var T = this;
-				Int<T> A = null;
+			public static Int<T> operator +(Int<T> T, Int<T> I) {
+				if (T == null) return I;
+				var Index = I.Index;
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
-					if (T.Shift == 0 && T.Index == Index) { if(Equal) return T; return T.above; }
-					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { A = T; break; }
-					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
+					if (T.Shift == 0 && T.Index == Index) return T;
+					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) {
+						new Int<T>(T, I); break;
+					}
+					T = (((Index >> T.Shift - 1) & 1) != 0) ? T.above : T.below;
 				}
-				while (A != null && A.Shift > 0) {
-					if (A.Index <= Index >> A.Shift) { A = A.above; } else { A = A.below; }
-				}
-				while (A != null && A.Index <= Index) { A = A.above; }
-				return A;
+				return I;
 			}
 			#endregion
-			#region #method# GetB(Index, Equal) 
+			#region #operator# - 
 			#region #through# 
 #if TRACE
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Int<T> GetB(int Index, bool Equal = false) {
-				var T = this;
-				Int<T> B = null;
-				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
-				while (T != null) {
-					if (T.Shift == 0 && T.Index == Index) { if (Equal) return T; return T.below; }
-					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { B = T; break; }
-					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
+			public static Int<T> operator -(Int<T> T, int Index) {
+				Int<T> C = T;
+				if (T != null) {
+					while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
+					while (T != null) {
+						if (T.Shift == 0 && T.Index == Index) {
+							C = T.above;
+							if (C == null) C = T.below;
+							T.Cut();
+							return C;
+						}
+						if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { return C; }
+						if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
+					}
 				}
-				while (B != null && B.Shift > 0) {
-					if (B.Index >= Index >> B.Shift) { B = B.below; } else { B = B.above; }
-				}
-				while (B != null && B.Index >= Index) { B = B.below; }
-				return B;
+				return C;
 			}
 			#endregion
 		}
