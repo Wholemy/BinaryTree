@@ -1,6 +1,5 @@
 namespace Wholemy {
-	public static class BinaryTree {
-		#region #class# Int<T> 
+	public static partial class Map {
 		#region #method# Add<T>(Owner, Index) 
 		#region #through# 
 #if TRACE
@@ -193,6 +192,7 @@ namespace Wholemy {
 			return false;
 		}
 		#endregion
+		#region #class# Int<T> 
 		/// <summary>Двоичное дерево типовых значений с 32 битным индексом целого числа со знаком)</summary>
 		/// <typeparam name="T">Тип значения)</typeparam>
 		public class Int<T> {
@@ -670,7 +670,10 @@ namespace Wholemy {
 			#endregion
 			public override string ToString() {
 				var I = System.Globalization.CultureInfo.InvariantCulture;
-				return $"{nameof(Int<T>)}({Index.ToString(I)}>>{Shift.ToString(I)})";
+				if (Shift > 0) { return $"Shift={Shift.ToString(I)} Index={Index.ToString(I)} Count={count.ToString(I)}"; }
+				var V = value;
+				if (V != null) { return $"Index={Index.ToString(I)} Value={V.ToString()}"; }
+				return $"Index={Index.ToString(I)}";
 			}
 			#endregion
 			#region #property# Base 
@@ -706,7 +709,7 @@ namespace Wholemy {
 			}
 			#endregion
 			#region #property# Items 
-			public int[] Items {
+			public Int<T>[] Items {
 				#region #through# 
 #if TRACE
 				[System.Diagnostics.DebuggerStepThrough]
@@ -716,12 +719,12 @@ namespace Wholemy {
 					var T = this;
 					while (T.owner != null) T = T.owner;
 					var I = T.count;
-					var A = new int[I];
+					var A = new Int<T>[I];
 					if (T.Shift == Bound) T = T.below;
 					while (T.Shift > 0) { T = T.above; }
 					while (T != null) {
 						if (T.Shift > 0) throw new System.InvalidOperationException();
-						A[--I] = T.Index;
+						A[--I] = T;
 						T = T.below;
 					}
 					return A;
@@ -817,7 +820,7 @@ namespace Wholemy {
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Int<T> GetBE(int Index, bool Equal = false) {
+			public Int<T> GetBE(int Index) {
 				var T = this;
 				Int<T> B = null;
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
