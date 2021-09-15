@@ -59,6 +59,114 @@ namespace Wholemy {
 			return false;
 		}
 		#endregion
+		#region #method# Get<T>(Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool Get<T>(ref Int<T> Owner, int Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.Get(Index);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetValue<T>(Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetValue<T>(ref Int<T> Owner, int Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.Get(Index);
+				if (O != null) {
+					Owner = O;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetA<T>(Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetA<T>(ref Int<T> Owner, int Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Index);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetB<T>(Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetB<T>(ref Int<T> Owner, int Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetAE<T>(Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetAE<T>(ref Int<T> Owner, int Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Index, true);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetBE<T>(Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetBE<T>(ref Int<T> Owner, int Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index, true);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
 		#region #method# CutA<T>(Owner, Index) 
 		#region #through# 
 #if TRACE
@@ -95,97 +203,6 @@ namespace Wholemy {
 					if (A == null) A = O.Above;
 					O.Cut();
 					Owner = A;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# Get<T>(Owner, Index) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool Get<T>(ref Int<T> Owner, int Index) {
-			var O = Owner;
-			if (O != null) {
-				O = O.Get(Index);
-				if (O != null) {
-					O.Cut();
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetA<T>(Owner, Index) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetA<T>(ref Int<T> Owner, int Index) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetA(Index);
-				if (O != null) {
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetB<T>(Owner, Index) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetB<T>(ref Int<T> Owner, int Index) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetB(Index);
-				if (O != null) {
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetAE<T>(Owner, Index) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetAE<T>(ref Int<T> Owner, int Index) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetA(Index, true);
-				if (O != null) {
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetBE<T>(Owner, Index) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetBE<T>(ref Int<T> Owner, int Index) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetB(Index, true);
-				if (O != null) {
-					Owner = O;
 					return true;
 				}
 			}
@@ -604,14 +621,14 @@ namespace Wholemy {
 				return T;
 			}
 			#endregion
-			#region #method# GetA(Index, Equal) 
+			#region #method# GetAbove(Index, Equal) 
 			/// <summary>Возвращает элемент дерева по указанному индексу или выше)</summary>
 			#region #through# 
 #if TRACE
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Int<T> GetA(int Index, bool Equal = false) {
+			public Int<T> GetAbove(int Index, bool Equal = false) {
 				var T = this;
 				Int<T> A = null;
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
@@ -627,14 +644,14 @@ namespace Wholemy {
 				return A;
 			}
 			#endregion
-			#region #method# GetB(Index, Equal) 
+			#region #method# GetBelow(Index, Equal) 
 			/// <summary>Возвращает элемент дерева по указанному индексу или ниже)</summary>
 			#region #through# 
 #if TRACE
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Int<T> GetB(int Index, bool Equal = false) {
+			public Int<T> GetBelow(int Index, bool Equal = false) {
 				var T = this;
 				Int<T> B = null;
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
