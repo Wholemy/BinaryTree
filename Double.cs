@@ -536,7 +536,7 @@ namespace Wholemy {
 				}
 			}
 			#endregion
-			#region #method# Add(Owner, Index) 
+			#region #method# Add(Owner, Insrc) 
 			/// <summary>Добавление элемента в дерево с уникальным индексом без установки значения)</summary>
 			/// <param name="Owner">Текущий владелец элемента)</param>
 			/// <param name="Insrc">Исходный индекс элемента)</param>
@@ -563,7 +563,7 @@ namespace Wholemy {
 				return false;
 			}
 			#endregion
-			#region #method# Add(Owner, Index, Value) 
+			#region #method# Add(Owner, Insrc, Value) 
 			/// <summary>Добавление элемента в дерево с уникальным индексом и предустановленным значением)</summary>
 			/// <param name="Owner">Текущий владелец элемента)</param>
 			/// <param name="Insrc">Исходный индекс элемента)</param>
@@ -591,7 +591,7 @@ namespace Wholemy {
 				return false;
 			}
 			#endregion
-			#region #method# Put(Owner, Index, Value) 
+			#region #method# Put(Owner, Insrc, Value) 
 			/// <summary>Добавление элемента в дерево или установка значения существующего элемента)</summary>
 			/// <param name="Owner">Текущий владелец элемента)</param>
 			/// <param name="Insrc">Исходный индекс элемента)</param>
@@ -619,7 +619,7 @@ namespace Wholemy {
 				return false;
 			}
 			#endregion
-			#region #method# Set(Owner, Index, Value) 
+			#region #method# Set(Owner, Insrc, Value) 
 			/// <summary>Установка значения существующего элемента)</summary>
 			/// <param name="Owner">Текущий владелец элемента)</param>
 			/// <param name="Insrc">Исходный индекс элемента)</param>
@@ -647,7 +647,7 @@ namespace Wholemy {
 				return false;
 			}
 			#endregion
-			#region #method# Get(Index) 
+			#region #method# Get(Insrc) 
 			/// <summary>Возвращает элемент дерева по указанному индексу)</summary>
 			/// <param name="Insrc">Исходный индекс элемента)</param>
 			#region #through# 
@@ -667,7 +667,7 @@ namespace Wholemy {
 				return T;
 			}
 			#endregion
-			#region #method# GetAbove(Index, Equal) 
+			#region #method# GetAbove(Insrc, Equal) 
 			/// <summary>Возвращает элемент дерева по указанному индексу или выше)</summary>
 			/// <param name="Insrc">Исходный индекс элемента)</param>
 			#region #through# 
@@ -692,7 +692,7 @@ namespace Wholemy {
 				return A;
 			}
 			#endregion
-			#region #method# GetBelow(Index, Equal) 
+			#region #method# GetBelow(Insrc, Equal) 
 			/// <summary>Возвращает элемент дерева по указанному индексу или ниже)</summary>
 			/// <param name="Insrc">Исходный индекс элемента)</param>
 			#region #through# 
