@@ -59,6 +59,114 @@ namespace Wholemy {
 			return false;
 		}
 		#endregion
+		#region #method# Get<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool Get<T>(ref Double<T> Owner, double Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.Get(Insrc);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetValue<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetValue<T>(ref Double<T> Owner, double Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.Get(Insrc);
+				if (O != null) {
+					Owner = O;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetA<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetA<T>(ref Double<T> Owner, double Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Insrc);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetB<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetB<T>(ref Double<T> Owner, double Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Insrc);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetAE<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetAE<T>(ref Double<T> Owner, double Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Insrc, true);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetBE<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetBE<T>(ref Double<T> Owner, double Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Insrc, true);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
 		#region #method# CutA<T>(Owner, Insrc) 
 		#region #through# 
 #if TRACE
@@ -95,97 +203,6 @@ namespace Wholemy {
 					if (A == null) A = O.Above;
 					O.Cut();
 					Owner = A;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# Get<T>(Owner, Insrc) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool Get<T>(ref Double<T> Owner, double Insrc) {
-			var O = Owner;
-			if (O != null) {
-				O = O.Get(Insrc);
-				if (O != null) {
-					O.Cut();
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetA<T>(Owner, Insrc) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetA<T>(ref Double<T> Owner, double Insrc) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetA(Insrc);
-				if (O != null) {
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetB<T>(Owner, Insrc) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetB<T>(ref Double<T> Owner, double Insrc) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetB(Insrc);
-				if (O != null) {
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetAE<T>(Owner, Insrc) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetAE<T>(ref Double<T> Owner, double Insrc) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetA(Insrc, true);
-				if (O != null) {
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetBE<T>(Owner, Insrc) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetBE<T>(ref Double<T> Owner, double Insrc) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetB(Insrc, true);
-				if (O != null) {
-					Owner = O;
 					return true;
 				}
 			}
@@ -650,7 +667,7 @@ namespace Wholemy {
 				return T;
 			}
 			#endregion
-			#region #method# GetA(Index, Equal) 
+			#region #method# GetAbove(Index, Equal) 
 			/// <summary>Возвращает элемент дерева по указанному индексу или выше)</summary>
 			/// <param name="Insrc">Исходный индекс элемента)</param>
 			#region #through# 
@@ -658,7 +675,7 @@ namespace Wholemy {
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Double<T> GetA(double Insrc, bool Equal = false) {
+			public Double<T> GetAbove(double Insrc, bool Equal = false) {
 				var T = this;
 				long Index = (DoubleLong)Insrc;
 				Double<T> A = null;
@@ -675,7 +692,7 @@ namespace Wholemy {
 				return A;
 			}
 			#endregion
-			#region #method# GetB(Index, Equal) 
+			#region #method# GetBelow(Index, Equal) 
 			/// <summary>Возвращает элемент дерева по указанному индексу или ниже)</summary>
 			/// <param name="Insrc">Исходный индекс элемента)</param>
 			#region #through# 
@@ -683,7 +700,7 @@ namespace Wholemy {
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Double<T> GetB(double Insrc, bool Equal = false) {
+			public Double<T> GetBelow(double Insrc, bool Equal = false) {
 				var T = this;
 				long Index = (DoubleLong)Insrc;
 				Double<T> B = null;
