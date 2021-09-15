@@ -1,55 +1,55 @@
 namespace Wholemy {
 	public static partial class Map {
-		#region #method# Add<T>(Owner, Index) 
+		#region #method# Add<T>(Owner, Insrc) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool Add<T>(ref Float<T> Owner, float Index) {
-			return Float<T>.Add(ref Owner, Index);
+		public static bool Add<T>(ref Float<T> Owner, float Insrc) {
+			return Float<T>.Add(ref Owner, Insrc);
 		}
 		#endregion
-		#region #method# Add<T>(Owner, Index, Value) 
+		#region #method# Add<T>(Owner, Insrc, Value) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool Add<T>(ref Float<T> Owner, float Index, T Value) {
-			return Float<T>.Add(ref Owner, Index, Value);
+		public static bool Add<T>(ref Float<T> Owner, float Insrc, T Value) {
+			return Float<T>.Add(ref Owner, Insrc, Value);
 		}
 		#endregion
-		#region #method# Put<T>(Owner, Index, Value) 
+		#region #method# Put<T>(Owner, Insrc, Value) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool Put<T>(ref Float<T> Owner, float Index, T Value) {
-			return Float<T>.Put(ref Owner, Index, Value);
+		public static bool Put<T>(ref Float<T> Owner, float Insrc, T Value) {
+			return Float<T>.Put(ref Owner, Insrc, Value);
 		}
 		#endregion
-		#region #method# Set<T>(Owner, Index, Value) 
+		#region #method# Set<T>(Owner, Insrc, Value) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool Set<T>(ref Float<T> Owner, float Index, T Value) {
-			return Float<T>.Set(ref Owner, Index, Value);
+		public static bool Set<T>(ref Float<T> Owner, float Insrc, T Value) {
+			return Float<T>.Set(ref Owner, Insrc, Value);
 		}
 		#endregion
-		#region #method# Get<T>(Owner, Index, Value) 
+		#region #method# Get<T>(Owner, Insrc, Value) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool Get<T>(ref Float<T> Owner, float Index, ref T Value) {
+		public static bool Get<T>(ref Float<T> Owner, float Insrc, ref T Value) {
 			var O = Owner;
 			if (O != null) {
-				O = O.Get(Index);
+				O = O.Get(Insrc);
 				if (O != null) {
 					Owner = O;
 					Value = O.Value;
@@ -59,13 +59,121 @@ namespace Wholemy {
 			return false;
 		}
 		#endregion
-		#region #method# CutA<T>(Owner, Index) 
+		#region #method# Get<T>(Owner, Insrc) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool CutA<T>(ref Float<T> Owner, float Index) {
+		public static bool Get<T>(ref Float<T> Owner, float Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.Get(Insrc);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetValue<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetValue<T>(ref Float<T> Owner, float Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.Get(Insrc);
+				if (O != null) {
+					Owner = O;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetA<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetA<T>(ref Float<T> Owner, float Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Insrc);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetB<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetB<T>(ref Float<T> Owner, float Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Insrc);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetAE<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetAE<T>(ref Float<T> Owner, float Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Insrc, true);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetBE<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetBE<T>(ref Float<T> Owner, float Insrc) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Insrc, true);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# CutA<T>(Owner, Insrc) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool CutA<T>(ref Float<T> Owner, float Insrc) {
 			var O = Owner;
 			if (O != null) {
 				O = O.Get(Index);
@@ -80,112 +188,21 @@ namespace Wholemy {
 			return false;
 		}
 		#endregion
-		#region #method# CutB<T>(Owner, Index) 
+		#region #method# CutB<T>(Owner, Insrc) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool CutB<T>(ref Float<T> Owner, float Index) {
+		public static bool CutB<T>(ref Float<T> Owner, float Insrc) {
 			var O = Owner;
 			if (O != null) {
-				O = O.Get(Index);
+				O = O.Get(Insrc);
 				if (O != null) {
 					var A = O.Below;
 					if (A == null) A = O.Above;
 					O.Cut();
 					Owner = A;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# Get<T>(Owner, Index) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool Get<T>(ref Float<T> Owner, float Index) {
-			var O = Owner;
-			if (O != null) {
-				O = O.Get(Index);
-				if (O != null) {
-					O.Cut();
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetA<T>(Owner, Index) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetA<T>(ref Float<T> Owner, float Index) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetA(Index);
-				if (O != null) {
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetB<T>(Owner, Index) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetB<T>(ref Float<T> Owner, float Index) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetB(Index);
-				if (O != null) {
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetAE<T>(Owner, Index) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetAE<T>(ref Float<T> Owner, float Index) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetA(Index, true);
-				if (O != null) {
-					Owner = O;
-					return true;
-				}
-			}
-			return false;
-		}
-		#endregion
-		#region #method# GetBE<T>(Owner, Index) 
-		#region #through# 
-#if TRACE
-		[System.Diagnostics.DebuggerStepThrough]
-#endif
-		#endregion
-		public static bool GetBE<T>(ref Float<T> Owner, float Index) {
-			var O = Owner;
-			if (O != null) {
-				O = O.GetB(Index, true);
-				if (O != null) {
-					Owner = O;
 					return true;
 				}
 			}
@@ -650,7 +667,7 @@ namespace Wholemy {
 				return T;
 			}
 			#endregion
-			#region #method# GetA(Insrc, Equal) 
+			#region #method# GetAbove(Insrc, Equal) 
 			/// <summary>Возвращает элемент дерева по указанному индексу или выше)</summary>
 			/// <param name="Insrc">Исходный индекс элемента)</param>
 			#region #through# 
@@ -658,7 +675,7 @@ namespace Wholemy {
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Float<T> GetA(float Insrc, bool Equal = false) {
+			public Float<T> GetAbove(float Insrc, bool Equal = false) {
 				var T = this;
 				int Index = (FloatInt)Insrc;
 				Float<T> A = null;
@@ -675,7 +692,7 @@ namespace Wholemy {
 				return A;
 			}
 			#endregion
-			#region #method# GetB(Insrc, Equal) 
+			#region #method# GetBelow(Insrc, Equal) 
 			/// <summary>Возвращает элемент дерева по указанному индексу или ниже)</summary>
 			/// <param name="Insrc">Исходный индекс элемента)</param>
 			#region #through# 
@@ -683,7 +700,7 @@ namespace Wholemy {
 			[System.Diagnostics.DebuggerStepThrough]
 #endif
 			#endregion
-			public Float<T> GetB(float Insrc, bool Equal = false) {
+			public Float<T> GetBelow(float Insrc, bool Equal = false) {
 				var T = this;
 				int Index = (FloatInt)Insrc;
 				Float<T> B = null;
