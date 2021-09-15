@@ -572,7 +572,7 @@ namespace Wholemy {
 			#endregion
 			public static bool Set(ref Int<T> Owner, int Index, T Value) {
 				var O = Owner;
-				if (O == null) { Owner = new Int<T>(Index, Value); return true; }
+				if (O == null) { return false; }
 				while (O.owner != null && O.Index != Index >> O.Shift) { O = O.owner; }
 				while (O != null) {
 					if (O.Shift == 0 && O.Index == Index) {
