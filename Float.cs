@@ -176,7 +176,7 @@ namespace Wholemy {
 		public static bool CutA<T>(ref Float<T> Owner, float Insrc) {
 			var O = Owner;
 			if (O != null) {
-				O = O.Get(Index);
+				O = O.Get(Insrc);
 				if (O != null) {
 					var A = O.Above;
 					if (A == null) A = O.Below;
