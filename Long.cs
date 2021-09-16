@@ -210,7 +210,7 @@ namespace Wholemy {
 		}
 		#endregion
 		#region #class# Long<T> 
-		/// <summary>Двоичное дерево типовых значений с 32 битным индексом целого числа со знаком)</summary>
+		/// <summary>Двоичное дерево типовых значений с 64 битным индексом целого числа со знаком)</summary>
 		/// <typeparam name="T">Тип значения)</typeparam>
 		public class Long<T> {
 			#region #new# (Index) 
