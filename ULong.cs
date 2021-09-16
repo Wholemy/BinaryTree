@@ -514,7 +514,7 @@ namespace Wholemy {
 					if (O.Shift == 0 && O.Index == Index) {
 						return false;
 					}
-					if (O.Shift == 0 || (/*O.Shift < Bound && */O.Index != Index >> O.Shift)) {
+					if (O.Shift == 0 || (O.Shift < Bound && O.Index != Index >> O.Shift)) {
 						new ULong<T>(O, O = new ULong<T>(Index)); Owner = O; return true;
 					}
 					if (((Index >> O.Shift - 1) & 1) != 0) { O = O.above; } else { O = O.below; }
@@ -541,7 +541,7 @@ namespace Wholemy {
 					if (O.Shift == 0 && O.Index == Index) {
 						return false;
 					}
-					if (O.Shift == 0 || (/*O.Shift < Bound && */O.Index != Index >> O.Shift)) {
+					if (O.Shift == 0 || (O.Shift < Bound && O.Index != Index >> O.Shift)) {
 						new ULong<T>(O, O = new ULong<T>(Index, Value)); Owner = O; return true;
 					}
 					if (((Index >> O.Shift - 1) & 1) != 0) { O = O.above; } else { O = O.below; }
@@ -568,7 +568,7 @@ namespace Wholemy {
 					if (O.Shift == 0 && O.Index == Index) {
 						O.value = Value; Owner = O; return true;
 					}
-					if (O.Shift == 0 || (/*O.Shift < Bound && */O.Index != Index >> O.Shift)) {
+					if (O.Shift == 0 || (O.Shift < Bound && O.Index != Index >> O.Shift)) {
 						new ULong<T>(O, O = new ULong<T>(Index, Value)); Owner = O; return true;
 					}
 					if (((Index >> O.Shift - 1) & 1) != 0) { O = O.above; } else { O = O.below; }
@@ -595,7 +595,7 @@ namespace Wholemy {
 					if (O.Shift == 0 && O.Index == Index) {
 						O.value = Value; Owner = O; return true;
 					}
-					if (O.Shift == 0 || (/*O.Shift < Bound && */O.Index != Index >> O.Shift)) {
+					if (O.Shift == 0 || (O.Shift < Bound && O.Index != Index >> O.Shift)) {
 						return false;
 					}
 					if (((Index >> O.Shift - 1) & 1) != 0) { O = O.above; } else { O = O.below; }
@@ -615,7 +615,7 @@ namespace Wholemy {
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
 					if (T.Shift == 0 && T.Index == Index) return T;
-					if (T.Shift == 0 || (/*T.Shift < Bound && */T.Index != Index >> T.Shift)) { return null; }
+					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { return null; }
 					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
 				}
 				return T;
@@ -634,7 +634,7 @@ namespace Wholemy {
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
 					if (T.Shift == 0 && T.Index == Index) { if (Equal) return T; return T.above; }
-					if (T.Shift == 0 || (/*T.Shift < Bound && */T.Index != Index >> T.Shift)) { A = T; break; }
+					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { A = T; break; }
 					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
 				}
 				while (A != null && A.Shift > 0) {
@@ -657,7 +657,7 @@ namespace Wholemy {
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
 					if (T.Shift == 0 && T.Index == Index) { if (Equal) return T; return T.below; }
-					if (T.Shift == 0 || (/*T.Shift < Bound && */T.Index != Index >> T.Shift)) { B = T; break; }
+					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { B = T; break; }
 					if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
 				}
 				while (B != null && B.Shift > 0) {
@@ -765,7 +765,7 @@ namespace Wholemy {
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
 					if (T.Shift == 0 && T.Index == Index) return T;
-					if (T.Shift == 0 || (/*T.Shift < Bound && */T.Index != Index >> T.Shift)) {
+					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) {
 						new ULong<T>(T, T = new ULong<T>(Index)); break;
 					}
 					T = (((Index >> T.Shift - 1) & 1) != 0) ? T.above : T.below;
@@ -783,7 +783,7 @@ namespace Wholemy {
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
 					if (T.Shift == 0 && T.Index == Index) return T;
-					if (T.Shift == 0 || (/*T.Shift < Bound && */T.Index != Index >> T.Shift)) {
+					if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) {
 						new ULong<T>(T, I); break;
 					}
 					T = (((Index >> T.Shift - 1) & 1) != 0) ? T.above : T.below;
@@ -808,7 +808,7 @@ namespace Wholemy {
 							T.Cut();
 							return C;
 						}
-						if (T.Shift == 0 || (/*T.Shift < Bound && */T.Index != Index >> T.Shift)) { return C; }
+						if (T.Shift == 0 || (T.Shift < Bound && T.Index != Index >> T.Shift)) { return C; }
 						if (((Index >> T.Shift - 1) & 1) != 0) { T = T.above; } else { T = T.below; }
 					}
 				}
