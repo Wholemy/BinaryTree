@@ -243,7 +243,7 @@ namespace Wholemy {
 		}
 		#endregion
 		#region #class# Double<T> 
-		/// <summary>Двоичное дерево типовых значений с 32 битным индексом целого числа со знаком)</summary>
+		/// <summary>Двоичное дерево типовых значений с 32 битным индексом числа с плавающей запятой)</summary>
 		/// <typeparam name="T">Тип значения)</typeparam>
 		public class Double<T> {
 			#region #new# (Insrc) 
