@@ -243,7 +243,7 @@ namespace Wholemy {
 		}
 		#endregion
 		#region #class# Float<T> 
-		/// <summary>Двоичное дерево типовых значений с 32 битным индексом целого числа со знаком)</summary>
+		/// <summary>Двоичное дерево типовых значений с 32 битным индексом числа с плавающей)</summary>
 		/// <typeparam name="T">Тип значения)</typeparam>
 		public class Float<T> {
 			#region #new# (Index) 
