@@ -211,7 +211,7 @@ namespace Wholemy {
 		#endregion
 		#region #struct# GuidUL 
 		[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Pack = 8, Size = 16)]
-		private unsafe struct GuidUL {
+		public unsafe struct GuidUL {
 			[System.Runtime.InteropServices.FieldOffset(0)]
 			public System.Guid G;
 			[System.Runtime.InteropServices.FieldOffset(0)]
@@ -524,7 +524,7 @@ namespace Wholemy {
 			#endregion
 			#region #readonly# Index 
 			/// <summary>Индекс ветки, зависимый от сдвига)</summary>
-			private readonly GuidUL Index;
+			public readonly GuidUL Index;
 			#endregion
 			#region #private# below 
 			/// <summary>Нижний элемент или ветка при сдвиге больше нуля)</summary>
