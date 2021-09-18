@@ -209,198 +209,197 @@ namespace Wholemy {
 			return false;
 		}
 		#endregion
-		#region #struct# GuidUL 
+		#region #struct# GUL 
 		[System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Pack = 8, Size = 16)]
-		public unsafe struct GuidUL {
+		public unsafe struct GUL {
 			[System.Runtime.InteropServices.FieldOffset(0)]
 			public System.Guid G;
 			[System.Runtime.InteropServices.FieldOffset(0)]
-			public ulong __;
+			public ulong L;
 			[System.Runtime.InteropServices.FieldOffset(8)]
-			public ulong _;
+			public ulong U;
 			#region #get# Value 
 			public System.Guid Value {
 				get { return (System.Guid)this; }
 			}
 			#endregion
 			#region #new# 
-			public GuidUL(System.Guid Value) {
-				fixed (void* Ptr = &this)
-					*(System.Guid*)Ptr = Value;
+			public GUL(System.Guid Value) {
+				L=0;
+				U=0;
+				G = Value;
 			}
-			public GuidUL(byte[] Array, ref int Index) {
+			public GUL(byte[] Array, ref int Index) {
 				var index = Index;
 #if DEBUG
 				if (index < 0 || Array.Length < index + 16)
 					throw new System.ArgumentOutOfRangeException(nameof(Index));
 #endif
-				fixed (GuidUL* Ptr = &this) fixed (void* Src = &Array[index])
-					*Ptr = *(GuidUL*)Src;
+				fixed (GUL* Ptr = &this) fixed (void* Src = &Array[index])
+					*Ptr = *(GUL*)Src;
 				Index = index + 16;
 			}
-			public GuidUL(int _) {
+			public GUL(int I) {
 				this.G = System.Guid.Empty;
-				this._ = (ulong)(long)_;
-				if (_ < 0)
-					this.__ = ulong.MaxValue;
+				this.L = (ulong)(long)I;
+				if (I < 0)
+					this.U = ulong.MaxValue;
 				else
-					this.__ = ulong.MinValue;
+					this.U = ulong.MinValue;
 			}
-			public GuidUL(uint _) {
+			public GUL(uint ui) {
 				this.G = System.Guid.Empty;
-				this._ = (ulong)_;
-				this.__ = ulong.MinValue;
+				this.L = (ulong)ui;
+				this.U = ulong.MinValue;
 			}
-			public GuidUL(long _) {
+			public GUL(long L) {
 				this.G = System.Guid.Empty;
-				this._ = (ulong)_;
-				if (_ < 0)
-					this.__ = ulong.MaxValue;
+				this.L = (ulong)L;
+				if (L < 0)
+					this.U = ulong.MaxValue;
 				else
-					this.__ = ulong.MinValue;
+					this.U = ulong.MinValue;
 			}
-			public GuidUL(ulong _) {
+			public GUL(ulong ul) {
 				this.G = System.Guid.Empty;
-				this._ = _;
-				this.__ = ulong.MinValue;
+				this.L = ul;
+				this.U = ulong.MinValue;
 			}
-			public GuidUL(ulong _, ulong __) {
+			public GUL(ulong U, ulong L) {
 				this.G = System.Guid.Empty;
-				this._ = _;
-				this.__ = __;
+				this.L = L;
+				this.U = U;
 			}
-			public static GuidUL New() {
-				return new GuidUL(System.Guid.NewGuid());
+			public static GUL New() {
+				return new GUL(System.Guid.NewGuid());
 			}
 			#endregion
 			#region #method# Parse 
-			public static GuidUL Parse(string Source) {
-				return new GuidUL(System.Guid.Parse(Source));
+			public static GUL Parse(string Source) {
+				return new GUL(System.Guid.Parse(Source));
 			}
-			public static bool Parse(string Source, ref GuidUL Result) {
+			public static bool Parse(string Source, ref GUL Result) {
 				if (System.Guid.TryParse(Source, out System.Guid guid)) {
-					Result = new GuidUL(guid);
+					Result = new GUL(guid);
 					return true;
 				}
 				return false;
 			}
-			public static GuidUL Parse(string Source, string Format) {
-				return new GuidUL(System.Guid.ParseExact(Source, Format));
+			public static GUL Parse(string Source, string Format) {
+				return new GUL(System.Guid.ParseExact(Source, Format));
 			}
-			public static bool Parse(string Source, string Format, ref GuidUL Result) {
+			public static bool Parse(string Source, string Format, ref GUL Result) {
 				if (System.Guid.TryParseExact(Source, Format, out System.Guid guid)) {
-					Result = new GuidUL(guid);
+					Result = new GUL(guid);
 					return true;
 				}
 				return false;
 			}
 			#endregion
 			#region #operator# 
-			public static bool operator ==(GuidUL _, GuidUL __) {
-				return ((_._ == __._) && (_.__ == __.__));
+			public static bool operator ==(GUL _, GUL __) {
+				return ((_.L == __.L) && (_.U == __.U));
 			}
-			public static bool operator !=(GuidUL _, GuidUL __) {
-				return ((_._ != __._) || (_.__ != __.__));
+			public static bool operator !=(GUL _, GUL __) {
+				return ((_.L != __.L) || (_.U != __.U));
 			}
-			public static bool operator ==(GuidUL _, int __) {
-				var Value = new GuidUL(__);
-				return ((_._ == Value._) && (_.__ == Value.__));
+			public static bool operator ==(GUL _, int __) {
+				var Value = new GUL(__);
+				return ((_.L == Value.L) && (_.U == Value.U));
 			}
-			public static bool operator !=(GuidUL _, int __) {
-				var Value = new GuidUL(__);
-				return ((_._ != Value._) || (_.__ != Value.__));
+			public static bool operator !=(GUL _, int __) {
+				var Value = new GUL(__);
+				return ((_.L != Value.L) || (_.U != Value.U));
 			}
-			public static bool operator >(GuidUL _, GuidUL __) {
-				if (_.__ == __.__)
-					return _._ > __._;
-				return _.__ > __.__;
+			public static bool operator >(GUL _, GUL __) {
+				if (_.U == __.U)
+					return _.L > __.L;
+				return _.U > __.U;
 			}
-			public static bool operator <(GuidUL _, GuidUL __) {
-				if (_.__ == __.__)
-					return _._ < __._;
-				return _.__ < __.__;
+			public static bool operator <(GUL _, GUL __) {
+				if (_.U == __.U)
+					return _.L < __.L;
+				return _.U < __.U;
 			}
-			public static GuidUL operator >>(GuidUL Value, int Shift) {
+			public static GUL operator >>(GUL Value, int Shift) {
 				if (Shift != 0 && Shift != 128) {
 					if (Shift < 1 || Shift > 127)
 						throw new System.ArgumentOutOfRangeException(nameof(Shift));
 					if (Shift > 63) {
 						Shift -= 64;
-						Value._ = Value.__ >> Shift;
-						Value.__ = 0;
+						Value.L = Value.U >> Shift;
+						Value.U = 0;
 					} else {
-						Value._ = (Value._ >> Shift) | (Value.__ << (64 - Shift));
-						Value.__ >>= Shift;
+						Value.L = (Value.L >> Shift) | (Value.U << (64 - Shift));
+						Value.U >>= Shift;
 					}
 				}
 				return Value;
 			}
-			public static GuidUL operator <<(GuidUL Value, int Shift) {
+			public static GUL operator <<(GUL Value, int Shift) {
 				if (Shift != 0 && Shift != 128) {
 					if (Shift < 1 || Shift > 127)
 						throw new System.ArgumentOutOfRangeException(nameof(Shift));
 					if (Shift > 63) {
 						Shift -= 64;
-						Value.__ = Value._ << Shift;
-						Value._ = 0;
+						Value.U = Value.L << Shift;
+						Value.L = 0;
 					} else {
-						Value.__ = (Value.__ << Shift) | (Value._ >> (64 - Shift));
-						Value._ <<= Shift;
+						Value.U = (Value.U << Shift) | (Value.L >> (64 - Shift));
+						Value.L <<= Shift;
 					}
 				}
 				return Value;
 			}
-			public static GuidUL operator &(GuidUL _, GuidUL __) {
-				_._ &= __._;
-				_.__ &= __.__;
+			public static GUL operator &(GUL _, GUL __) {
+				_.L &= __.L;
+				_.U &= __.U;
 				return _;
 			}
-			public static GuidUL operator |(GuidUL _, GuidUL __) {
-				_._ |= __._;
-				_.__ |= __.__;
+			public static GUL operator |(GUL _, GUL __) {
+				_.L |= __.L;
+				_.U |= __.U;
 				return _;
 			}
-			public static GuidUL operator &(GuidUL _, int __) {
-				var Value = (GuidUL)__;
-				_._ &= Value._;
-				_.__ &= Value.__;
+			public static GUL operator &(GUL _, int __) {
+				var Value = (GUL)__;
+				_.L &= Value.L;
+				_.U &= Value.U;
 				return _;
 			}
-			public static GuidUL operator |(GuidUL _, int __) {
-				var Value = (GuidUL)__;
-				_._ |= Value._;
-				_.__ |= Value.__;
+			public static GUL operator |(GUL _, int __) {
+				var Value = (GUL)__;
+				_.L |= Value.L;
+				_.U |= Value.U;
 				return _;
 			}
-			public static implicit operator GuidUL(System.Guid Value) {
-				return new GuidUL(Value);
+			public static implicit operator GUL(System.Guid Value) {
+				return new GUL() { G = Value };
 			}
-			public static implicit operator System.Guid(GuidUL Value) {
-				var guid = new System.Guid();
-				*&guid = *(System.Guid*)&Value;
-				return guid;
+			public static implicit operator System.Guid(GUL Value) {
+				return Value.G;
 			}
-			public static explicit operator GuidUL(int Value) {
-				return new GuidUL(Value);
+			public static explicit operator GUL(int Value) {
+				return new GUL(Value);
 			}
-			public static explicit operator GuidUL(uint Value) {
-				return new GuidUL(Value);
+			public static explicit operator GUL(uint Value) {
+				return new GUL(Value);
 			}
-			public static explicit operator GuidUL(long Value) {
-				return new GuidUL(Value);
+			public static explicit operator GUL(long Value) {
+				return new GUL(Value);
 			}
-			public static explicit operator GuidUL(ulong Value) {
-				return new GuidUL(Value);
+			public static explicit operator GUL(ulong Value) {
+				return new GUL(Value);
 			}
 			#endregion
 			#region #method# ToString 
 #if TRACE
 			public override string ToString() {
-				return this.__.ToString("X16") + this._.ToString("X16");
+				return this.U.ToString("X16") + this.L.ToString("X16");
 			}
 #endif
 			#endregion
-		}
+		}  
 		internal static void Test() {
 			Guid<int> I = null;
 			Add(ref I, System.Guid.Empty);
@@ -458,7 +457,7 @@ namespace Wholemy {
 					Shift = 0;
 				} else {
 					var Step = Bound >> 1;
-					var Mask = new GuidUL(-1) << (Bound >> 1);
+					var Mask = new GUL(-1) << (Bound >> 1);
 					while (Step > 0) {
 						if ((OldIndex & Mask) == (NewIndex & Mask)) {
 							Shift -= Step;
@@ -524,7 +523,7 @@ namespace Wholemy {
 			#endregion
 			#region #readonly# Index 
 			/// <summary>Индекс ветки, зависимый от сдвига)</summary>
-			public readonly GuidUL Index;
+			public readonly GUL Index;
 			#endregion
 			#region #private# below 
 			/// <summary>Нижний элемент или ветка при сдвиге больше нуля)</summary>
@@ -706,7 +705,7 @@ namespace Wholemy {
 #endif
 			#endregion
 			public static bool Add(ref Guid<T> Owner, System.Guid Insrc) {
-				GuidUL Index = Insrc;
+				GUL Index = Insrc;
 				var O = Owner;
 				if (O == null) { Owner = new Guid<T>(Index); return true; }
 				while (O.owner != null && O.Index != Index >> O.Shift) { O = O.owner; }
@@ -734,7 +733,7 @@ namespace Wholemy {
 #endif
 			#endregion
 			public static bool Add(ref Guid<T> Owner, System.Guid Insrc, T Value) {
-				GuidUL Index = Insrc;
+				GUL Index = Insrc;
 				var O = Owner;
 				if (O == null) { Owner = new Guid<T>(Index, Value); return true; }
 				while (O.owner != null && O.Index != Index >> O.Shift) { O = O.owner; }
@@ -762,7 +761,7 @@ namespace Wholemy {
 #endif
 			#endregion
 			public static bool Put(ref Guid<T> Owner, System.Guid Insrc, T Value) {
-				GuidUL Index = Insrc;
+				GUL Index = Insrc;
 				var O = Owner;
 				if (O == null) { Owner = new Guid<T>(Index, Value); return true; }
 				while (O.owner != null && O.Index != Index >> O.Shift) { O = O.owner; }
@@ -790,7 +789,7 @@ namespace Wholemy {
 #endif
 			#endregion
 			public static bool Set(ref Guid<T> Owner, System.Guid Insrc, T Value) {
-				GuidUL Index = Insrc;
+				GUL Index = Insrc;
 				var O = Owner;
 				if (O == null) { return false; }
 				while (O.owner != null && O.Index != Index >> O.Shift) { O = O.owner; }
@@ -814,7 +813,7 @@ namespace Wholemy {
 #endif
 			#endregion
 			public Guid<T> Get(System.Guid Insrc) {
-				GuidUL Index = Insrc;
+				GUL Index = Insrc;
 				var T = this;
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
@@ -833,7 +832,7 @@ namespace Wholemy {
 #endif
 			#endregion
 			public Guid<T> GetAbove(System.Guid Insrc, bool Equal = false) {
-				GuidUL Index = Insrc;
+				GUL Index = Insrc;
 				var T = this;
 				Guid<T> A = null;
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
@@ -857,7 +856,7 @@ namespace Wholemy {
 #endif
 			#endregion
 			public Guid<T> GetBelow(System.Guid Insrc, bool Equal = false) {
-				GuidUL Index = Insrc;
+				GUL Index = Insrc;
 				var T = this;
 				Guid<T> B = null;
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
@@ -967,7 +966,7 @@ namespace Wholemy {
 #endif
 			#endregion
 			public static Guid<T> operator +(Guid<T> T, System.Guid Insrc) {
-				GuidUL Index = Insrc;
+				GUL Index = Insrc;
 				if (T == null) return new Guid<T>(Index);
 				while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
 				while (T != null) {
@@ -1005,7 +1004,7 @@ namespace Wholemy {
 #endif
 			#endregion
 			public static Guid<T> operator -(Guid<T> T, System.Guid Insrc) {
-				GuidUL Index = Insrc;
+				GUL Index = Insrc;
 				Guid<T> C = T;
 				if (T != null) {
 					while (T.owner != null && T.Index != Index >> T.Shift) { T = T.owner; }
