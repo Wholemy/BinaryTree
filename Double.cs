@@ -1,55 +1,55 @@
 namespace Wholemy {
 	public static partial class Map {
-		#region #method# Add<T>(Owner, Insrc) 
+		#region #method# Add<T>(#ref# Owner, Index) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool Add<T>(ref Double<T> Owner, double Insrc) {
-			return Double<T>.Add(ref Owner, Insrc);
+		public static bool Add<T>(ref Double<T> Owner, double Index) {
+			return Double<T>.Add(ref Owner, Index);
 		}
 		#endregion
-		#region #method# Add<T>(Owner, Insrc, Value) 
+		#region #method# Add<T>(#ref# Owner, Index, Value) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool Add<T>(ref Double<T> Owner, double Insrc, T Value) {
-			return Double<T>.Add(ref Owner, Insrc, Value);
+		public static bool Add<T>(ref Double<T> Owner, double Index, T Value) {
+			return Double<T>.Add(ref Owner, Index, Value);
 		}
 		#endregion
-		#region #method# Put<T>(Owner, Insrc, Value) 
+		#region #method# Put<T>(#ref# Owner, Index, Value) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool Put<T>(ref Double<T> Owner, double Insrc, T Value) {
-			return Double<T>.Put(ref Owner, Insrc, Value);
+		public static bool Put<T>(ref Double<T> Owner, double Index, T Value) {
+			return Double<T>.Put(ref Owner, Index, Value);
 		}
 		#endregion
-		#region #method# Set<T>(Owner, Insrc, Value) 
+		#region #method# Set<T>(#ref# Owner, Index, Value) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool Set<T>(ref Double<T> Owner, double Insrc, T Value) {
-			return Double<T>.Set(ref Owner, Insrc, Value);
+		public static bool Set<T>(ref Double<T> Owner, double Index, T Value) {
+			return Double<T>.Set(ref Owner, Index, Value);
 		}
 		#endregion
-		#region #method# Get<T>(Owner, Insrc, Value) 
+		#region #method# Get<T>(#ref# Owner, Index, #ref# Value) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool Get<T>(ref Double<T> Owner, double Insrc, ref T Value) {
+		public static bool Get<T>(ref Double<T> Owner, double Index, ref T Value) {
 			var O = Owner;
 			if (O != null) {
-				O = O.Get(Insrc);
+				O = O.Get(Index);
 				if (O != null) {
 					Owner = O;
 					Value = O.Value;
@@ -59,16 +59,16 @@ namespace Wholemy {
 			return false;
 		}
 		#endregion
-		#region #method# Get<T>(Owner, Insrc) 
+		#region #method# Get<T>(#ref# Owner, Index) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool Get<T>(ref Double<T> Owner, double Insrc) {
+		public static bool Get<T>(ref Double<T> Owner, double Index) {
 			var O = Owner;
 			if (O != null) {
-				O = O.Get(Insrc);
+				O = O.Get(Index);
 				if (O != null) {
 					Owner = O;
 					return true;
@@ -77,16 +77,160 @@ namespace Wholemy {
 			return false;
 		}
 		#endregion
-		#region #method# GetValue<T>(Owner, Insrc) 
+		#region #method# GetA<T>(#ref# Owner, Index) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static T GetValue<T>(ref Double<T> Owner, double Insrc) {
+		public static bool GetA<T>(ref Double<T> Owner, double Index) {
 			var O = Owner;
 			if (O != null) {
-				O = O.Get(Insrc);
+				O = O.GetAbove(Index);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetA<T>(#ref# Owner, Index, Limit) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetA<T>(ref Double<T> Owner, double Index, double Limit) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Index);
+				if (O != null && O.Index <= Limit) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetAE<T>(#ref# Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetAE<T>(ref Double<T> Owner, double Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Index, true);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetAE<T>(#ref# Owner, Index, Limit) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetAE<T>(ref Double<T> Owner, double Index, double Limit) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Index, true);
+				if (O != null && O.Index <= Limit) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetB<T>(#ref# Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetB<T>(ref Double<T> Owner, double Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetB<T>(#ref# Owner, Index, Limit) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetB<T>(ref Double<T> Owner, double Index, double Limit) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index);
+				if (O != null && O.Index >= Limit) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetBE<T>(#ref# Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetBE<T>(ref Double<T> Owner, double Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index, true);
+				if (O != null) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetBE<T>(#ref# Owner, Index, Limit) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool GetBE<T>(ref Double<T> Owner, double Index, double Limit) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index, true);
+				if (O != null && O.Index >= Limit) {
+					Owner = O;
+					return true;
+				}
+			}
+			return false;
+		}
+		#endregion
+		#region #method# GetV<T>(#ref# Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetV<T>(ref Double<T> Owner, double Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.Get(Index);
 				if (O != null) {
 					Owner = O;
 					return O.Value;
@@ -95,88 +239,312 @@ namespace Wholemy {
 			return default(T);
 		}
 		#endregion
-		#region #method# GetA<T>(Owner, Insrc) 
+		#region #method# GetVA<T>(#ref# Owner, Index) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool GetA<T>(ref Double<T> Owner, double Insrc) {
+		public static T GetVA<T>(ref Double<T> Owner, double Index) {
 			var O = Owner;
 			if (O != null) {
-				O = O.GetAbove(Insrc);
+				O = O.GetAbove(Index);
 				if (O != null) {
 					Owner = O;
-					return true;
+					return O.Value;
 				}
 			}
-			return false;
+			return default(T);
 		}
 		#endregion
-		#region #method# GetB<T>(Owner, Insrc) 
+		#region #method# GetVA<T>(#ref# Owner, #ref# Index) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool GetB<T>(ref Double<T> Owner, double Insrc) {
+		public static T GetVA<T>(ref Double<T> Owner, ref double Index) {
 			var O = Owner;
 			if (O != null) {
-				O = O.GetBelow(Insrc);
+				O = O.GetAbove(Index);
 				if (O != null) {
 					Owner = O;
-					return true;
+					Index = O.Index;
+					return O.Value;
 				}
 			}
-			return false;
+			return default(T);
 		}
 		#endregion
-		#region #method# GetAE<T>(Owner, Insrc) 
+		#region #method# GetVA<T>(#ref# Owner, Index, Limit) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool GetAE<T>(ref Double<T> Owner, double Insrc) {
+		public static T GetVA<T>(ref Double<T> Owner, double Index, double Limit) {
 			var O = Owner;
 			if (O != null) {
-				O = O.GetAbove(Insrc, true);
+				O = O.GetAbove(Index);
+				if (O != null && O.Index <= Limit) {
+					Owner = O;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetVA<T>(#ref# Owner, #ref# Index, Limit) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetVA<T>(ref Double<T> Owner, ref double Index, double Limit) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Index);
+				if (O != null && O.Index <= Limit) {
+					Owner = O;
+					Index = O.Index;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetVAE<T>(#ref# Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetVAE<T>(ref Double<T> Owner, double Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Index, true);
 				if (O != null) {
 					Owner = O;
-					return true;
+					return O.Value;
 				}
 			}
-			return false;
+			return default(T);
 		}
 		#endregion
-		#region #method# GetBE<T>(Owner, Insrc) 
+		#region #method# GetVAE<T>(#ref# Owner, #ref# Index) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool GetBE<T>(ref Double<T> Owner, double Insrc) {
+		public static T GetVAE<T>(ref Double<T> Owner, ref double Index) {
 			var O = Owner;
 			if (O != null) {
-				O = O.GetBelow(Insrc, true);
+				O = O.GetAbove(Index, true);
 				if (O != null) {
 					Owner = O;
-					return true;
+					Index = O.Index;
+					return O.Value;
 				}
 			}
-			return false;
+			return default(T);
 		}
 		#endregion
-		#region #method# CutA<T>(Owner, Insrc) 
+		#region #method# GetVAE<T>(#ref# Owner, Index, Limit) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool CutA<T>(ref Double<T> Owner, double Insrc) {
+		public static T GetVAE<T>(ref Double<T> Owner, double Index, double Limit) {
 			var O = Owner;
 			if (O != null) {
-				O = O.Get(Insrc);
+				O = O.GetAbove(Index, true);
+				if (O != null && O.Index <= Limit) {
+					Owner = O;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetVAE<T>(#ref# Owner, #ref# Index, Limit) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetVAE<T>(ref Double<T> Owner, ref double Index, double Limit) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetAbove(Index, true);
+				if (O != null && O.Index <= Limit) {
+					Owner = O;
+					Index = O.Index;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetVB<T>(#ref# Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetVB<T>(ref Double<T> Owner, double Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index);
+				if (O != null) {
+					Owner = O;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetVB<T>(#ref# Owner, #ref# Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetVB<T>(ref Double<T> Owner, ref double Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index);
+				if (O != null) {
+					Owner = O;
+					Index = O.Index;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetVB<T>(#ref# Owner, Index, Limit) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetVB<T>(ref Double<T> Owner, double Index, double Limit) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index);
+				if (O != null && O.Index >= Limit) {
+					Owner = O;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetVB<T>(#ref# Owner, #ref# Index, Limit) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetVB<T>(ref Double<T> Owner, ref double Index, double Limit) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index);
+				if (O != null && O.Index >= Limit) {
+					Owner = O;
+					Index = O.Index;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetVBE<T>(#ref# Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetVBE<T>(ref Double<T> Owner, double Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index, true);
+				if (O != null) {
+					Owner = O;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetVBE<T>(#ref# Owner, #ref# Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetVBE<T>(ref Double<T> Owner, ref double Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index, true);
+				if (O != null) {
+					Owner = O;
+					Index = O.Index;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetVBE<T>(#ref# Owner, Index, Limit) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetVBE<T>(ref Double<T> Owner, double Index, double Limit) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index, true);
+				if (O != null && O.Index >= Limit) {
+					Owner = O;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# GetVBE<T>(#ref# Owner, #ref# Index, Limit) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static T GetVBE<T>(ref Double<T> Owner, ref double Index, double Limit) {
+			var O = Owner;
+			if (O != null) {
+				O = O.GetBelow(Index, true);
+				if (O != null && O.Index >= Limit) {
+					Owner = O;
+					Index = O.Index;
+					return O.Value;
+				}
+			}
+			return default(T);
+		}
+		#endregion
+		#region #method# CutA<T>(#ref# Owner, Index) 
+		#region #through# 
+#if TRACE
+		[System.Diagnostics.DebuggerStepThrough]
+#endif
+		#endregion
+		public static bool CutA<T>(ref Double<T> Owner, double Index) {
+			var O = Owner;
+			if (O != null) {
+				O = O.Get(Index);
 				if (O != null) {
 					var A = O.Above;
 					if (A == null) A = O.Below;
@@ -188,16 +556,16 @@ namespace Wholemy {
 			return false;
 		}
 		#endregion
-		#region #method# CutB<T>(Owner, Insrc) 
+		#region #method# CutB<T>(#ref# Owner, Index) 
 		#region #through# 
 #if TRACE
 		[System.Diagnostics.DebuggerStepThrough]
 #endif
 		#endregion
-		public static bool CutB<T>(ref Double<T> Owner, double Insrc) {
+		public static bool CutB<T>(ref Double<T> Owner, double Index) {
 			var O = Owner;
 			if (O != null) {
-				O = O.Get(Insrc);
+				O = O.Get(Index);
 				if (O != null) {
 					var A = O.Below;
 					if (A == null) A = O.Above;
